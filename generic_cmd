@@ -1,0 +1,8 @@
+#!/usr/bin/env amm
+import $file.common_utils
+import scala.sys.process._
+
+@main
+def main(args: String*): Unit = {
+  common_utils.construct_generic_command(args:_*) !
+}
