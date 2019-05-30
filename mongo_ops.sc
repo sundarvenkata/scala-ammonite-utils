@@ -25,10 +25,10 @@ def dump(source: Map[String, String]): Unit = {
 }
 
 def mongodump(args: Map[String, String]): ProcessBuilder = {
-  val initialCommand = s"mongodump --host ${args("h")} --db ${args("d")} --username ${args("u")} --password ${args("p")}" +
-    s" --authenticationDatabase=${args.getOrElse("a", "admin")} -o ${args("o")}"
+  val initialCommand = s"mongodump --host ${args("h")} --db ${args("d")}" +
+    s" -o ${args("o")}"
   val commandToRun = initialCommand + " " +
-    common_utils.construct_command_line_arguments_from_map (args - ("h", "d", "u", "p", "a"))
+    common_utils.construct_command_line_arguments_from_map (args - ("h", "d"))
   commandToRun
 }
 
