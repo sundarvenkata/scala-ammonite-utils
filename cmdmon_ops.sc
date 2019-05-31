@@ -2,6 +2,7 @@
 import $file.common_utils
 import scala.sys.process._
 
+val BASH_HISTORY_FILE = s"${System.getProperty("user.home")}/.bash_history"
 val COMMAND_MONITOR_HOSTS_FILE = s"${System.getProperty("user.home")}/.cmdmonhosts"
 val FILES_TO_MONITOR_FILE = s"${System.getProperty("user.home")}/.cmdmonfiles"
 val COMMAND_HISTORY_FILE = s"${System.getProperty("user.home")}/allhist"
@@ -38,6 +39,7 @@ def load_cmd_hist(): Unit = {
   val temp_file = s"$COMMAND_HISTORY_FILE.temp"
   common_utils.getFileContents(COMMAND_MONITOR_HOSTS_FILE)
     .map(user_host => get_cmd_hist_from_host(user_host, filesToMonitor))
-    .foreach(stream => common_utils.write_stream_to_file(temp_file, stream))
+    .foreach(stream => common_utils.write_stream_to_file(temp_file, stream))  
+  common_utils.write_stream_to_file(temp_file, common_utils.getFileContents(BASH_HISTORY_FILE))
   Seq("bash", "-c", s"sort $temp_file | uniq > $COMMAND_HISTORY_FILE").!!
 }
