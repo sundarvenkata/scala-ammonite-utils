@@ -2,6 +2,7 @@
 import scala.sys.process._
 import $file.common_utils
 import $file.db_ops
+import scala.language.postfixOps
 
 @main
 def copy_db(source: Map[String, String], sink: Map[String, String]): Unit = {

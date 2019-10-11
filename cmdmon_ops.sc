@@ -42,4 +42,5 @@ def load_cmd_hist(): Unit = {
     .foreach(stream => common_utils.write_stream_to_file(temp_file, stream))  
   common_utils.write_stream_to_file(temp_file, common_utils.getFileContents(BASH_HISTORY_FILE))
   Seq("bash", "-c", s"sort $temp_file | uniq > $COMMAND_HISTORY_FILE").!!
+  Seq("bash", "-c", s"cp $COMMAND_HISTORY_FILE $temp_file").!!
 }
